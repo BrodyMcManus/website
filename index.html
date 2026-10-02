@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Brody McManus</title>
+  <meta name="description" content="Writing and interactive pieces by Brody McManus." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
@@ -12,11 +13,12 @@
   />
   <style>
     :root {
-      --bg: #0b0c10;
-      --text: #e9e4d4;
-      --text-dim: #a09c8f;
-      --rule: #2a2d3a;
-      --accent: #f2b143;
+      --bg: #fbfaf7;
+      --text: #1d1c1a;
+      --text-dim: #5a564e;
+      --text-faint: #8a857a;
+      --rule: #e3dfd6;
+      --accent: #a25f00;
       --serif: "Fraunces", "EB Garamond", Georgia, serif;
       --mono: "JetBrains Mono", ui-monospace, monospace;
     }
@@ -26,6 +28,7 @@
       background: var(--bg);
       color: var(--text);
       font-family: var(--serif);
+      font-optical-sizing: auto;
       font-weight: 350;
       font-size: 18px;
       line-height: 1.65;
@@ -34,43 +37,69 @@
     main {
       max-width: 680px;
       margin: 0 auto;
-      padding: 6rem 1.5rem 4rem;
+      padding: 7rem 1.5rem 5rem;
     }
     h1 {
       font-weight: 300;
       font-variation-settings: "opsz" 144, "SOFT" 30;
-      font-size: clamp(2.4rem, 5.5vw, 3.6rem);
+      font-size: clamp(2.4rem, 5.5vw, 3.4rem);
       line-height: 1.05;
-      margin: 0 0 3rem;
+      letter-spacing: -0.01em;
+      margin: 0 0 4rem;
     }
     .label {
       font-family: var(--mono);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 1rem;
+      color: var(--text-faint);
+      margin-bottom: 0.5rem;
     }
-    ul { list-style: none; padding: 0; margin: 0; }
-    li { padding: 1rem 0; border-top: 1px solid var(--rule); }
-    a { color: var(--text); text-decoration: none; }
-    a:hover { color: var(--accent); }
-    .sub { color: var(--text-dim); font-size: 0.95rem; }
-    .sub a { color: var(--text-dim); text-decoration: underline; text-underline-offset: 3px; }
+    ul { list-style: none; padding: 0; margin: 0; border-bottom: 1px solid var(--rule); }
+    li { border-top: 1px solid var(--rule); }
+    li a {
+      display: block;
+      padding: 1.4rem 0;
+      color: var(--text);
+      text-decoration: none;
+    }
+    .title {
+      font-size: 1.3rem;
+      font-weight: 400;
+      line-height: 1.3;
+      transition: color 0.15s ease;
+    }
+    li a:hover .title { color: var(--accent); }
+    .desc { color: var(--text-dim); font-size: 0.95rem; margin-top: 0.3rem; }
+    .meta {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-top: 0.6rem;
+    }
   </style>
 </head>
 <body>
   <main>
     <h1>Brody McManus</h1>
-    <div class="label">Writing</div>
+
+    <div class="label">Published</div>
     <ul>
       <li>
-        <a href="solar-orbit-allocation/orbital-elements/">How do we describe an orbit?</a>
-        <div class="sub">Interactive &middot; the six classical orbital elements</div>
+        <a href="/solar-captor-visualizer/">
+          <div class="title">Solar Captor Visualizer</div>
+          <div class="desc">An interactive look at the six numbers that define any orbit around the Sun.</div>
+          <div class="meta">Interactive &middot; 2026</div>
+        </a>
       </li>
       <li>
-        <a href="solar-orbit-allocation/">How to allocate orbits around the sun</a>
-        <div class="sub">Working draft</div>
+        <a href="/solar-orbit-allocation/">
+          <div class="title">How to allocate orbits around the sun</div>
+          <div class="desc">Early research on who gets to build where, as solar infrastructure scales up.</div>
+          <div class="meta">Working draft &middot; v0.1 &middot; 2026</div>
+        </a>
       </li>
     </ul>
   </main>
