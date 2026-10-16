@@ -4,9 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Solar Captor Visualizer</title>
-  <meta name="description" content="An interactive introduction to the six classical orbital elements that define any orbit around the Sun." />
+  <meta name="description" content="An interactive introduction to the six numbers that define any orbit around the Sun." />
   <meta property="og:title" content="Solar Captor Visualizer" />
-  <meta property="og:description" content="An interactive introduction to the six classical orbital elements." />
+  <meta property="og:description" content="An interactive introduction to the six numbers that define any orbit around the Sun." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://brodymcmanus.com/solar-captor-visualizer/" />
 
@@ -360,7 +360,19 @@
       font-size: 1.05rem;
       margin-right: 0.4rem;
     }
+    .control-plain {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-left: 0.5rem;
+      white-space: nowrap;
+    }
     .control-value {
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-left: 0.6rem;
       font-family: var(--mono);
       font-size: 0.8rem;
       color: var(--text-dim);
@@ -529,9 +541,12 @@
 
     <section id="elements">
       <p>
-        Any orbit around the Sun can be uniquely defined with six numbers. There
-        are many equivalent ways to choose them, but for intuitive interpretation
-        we use the <em>classical orbital elements</em>.<sup><a href="https://en.wikipedia.org/wiki/Orbital_elements" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">&#x2197;</a></sup>
+        Any orbit around the Sun can be uniquely defined with six numbers, and
+        there are several common sets of six to choose from.<sup><a href="https://en.wikipedia.org/wiki/Orbital_elements#Common_sets_of_elements" target="_blank" rel="noopener" style="color:var(--accent);text-decoration:none;">&#x2197;</a></sup>
+        Here we use five of the classical orbital elements to describe the orbit
+        itself, and the <em>mean longitude</em> for the captor&rsquo;s position
+        on it, because it stays well defined for the near-circular orbits a
+        Dyson swarm would use.
         The first two describe the <em>shape</em> of the orbit. The next three
         describe how the orbital plane is <em>oriented</em> in space. The last
         describes <em>where on the orbit</em> the captor happens to be at a given
@@ -574,9 +589,10 @@
       </div>
 
       <p>
-        Each of these six numbers can be &ldquo;allocated&rdquo; to an actor
-        that wants to place captors, or other infrastructure, in orbit around the Sun. How that allocation
-        is structured carries significant implications.
+        Together, these six numbers pin down a single captor at a single
+        instant. An allocation system determines what actors end up with which
+        orbital parameters, with the resulting allocation carrying significant
+        implications.
       </p>
 
     </section>
@@ -605,38 +621,38 @@
       i: 18,       // deg
       Omega: 60,   // deg
       omega: 90,   // deg
-      nu: 45       // deg
+      lambda: 180  // deg
     };
 
     const elements = [
       {
-        key: 'a', symbol: 'a', name: 'Semi-major axis',
+        key: 'a', symbol: 'a', name: 'Semi-major axis', plain: 'radius',
         desc: 'The orbit\u2019s overall size &mdash; roughly how far from the Sun it sits.',
         min: 0.2, max: 0.9, step: 0.01, unit: 'AU', decimals: 2
       },
       {
-        key: 'e', symbol: 'e', name: 'Eccentricity',
+        key: 'e', symbol: 'e', name: 'Eccentricity', plain: 'stretch',
         desc: 'How stretched the orbit is. 0 is a circle; higher values are more elongated.',
         min: 0, max: 0.85, step: 0.005, unit: '', decimals: 3
       },
       {
         key: 'i', symbol: 'i', name: 'Inclination',
-        desc: 'The tilt of the orbital plane relative to the ecliptic plane.',
+        desc: 'The tilt of the orbital plane measured from the ecliptic plane (or other reference plane).',
         min: 0, max: 180, step: 0.5, unit: '\u00B0', decimals: 1
       },
       {
-        key: 'Omega', symbol: '\u03A9', name: 'Longitude of ascending node',
-        desc: 'Where the solar captor\u2019s orbit crosses the ecliptic plane going \u201cupward\u201d, measured around the Sun.',
+        key: 'Omega', symbol: '\u03A9', name: 'Longitude of ascending node', plain: 'upward crossing direction',
+        desc: 'Where the solar captor\u2019s orbit crosses the ecliptic plane going \u201cupward\u201d, measured around the Sun from a reference direction.',
         min: 0, max: 360, step: 0.5, unit: '\u00B0', decimals: 1
       },
       {
-        key: 'omega', symbol: '\u03C9', name: 'Argument of periapsis',
+        key: 'omega', symbol: '\u03C9', name: 'Argument of periapsis', plain: 'closest point',
         desc: 'The point in the orbit where the solar captor is closest to the Sun.',
         min: 0, max: 360, step: 0.5, unit: '\u00B0', decimals: 1
       },
       {
-        key: 'nu', symbol: '\u03BD', name: 'True anomaly',
-        desc: 'The captor\u2019s actual position along the orbit at this instant.',
+        key: 'lambda', symbol: '\u03BB', name: 'Mean longitude', plain: 'position',
+        desc: 'The captor\u2019s specific position on the orbit defined by the five variables above.',
         min: 0, max: 360, step: 0.5, unit: '\u00B0', decimals: 1
       }
     ];
@@ -658,7 +674,7 @@
       head.className = 'control-head';
       head.innerHTML = `
         <div class="control-name">
-          <span class="control-symbol">${el.symbol}</span>${el.name}
+          <span class="control-symbol">${el.symbol}</span>${el.name}${el.plain ? `<span class="control-plain">${el.plain}</span>` : ''}
         </div>
         <div class="control-value" id="val-${el.key}"></div>
       `;
@@ -881,13 +897,27 @@
       return new THREE.Vector3(x, z, -y);
     }
 
+    // Mean longitude -> true anomaly: M = lambda - Omega - omega, then
+    // Kepler's equation M = E - e sin E (Newton's method), then E -> nu.
+    function trueAnomalyFromMeanLongitude(lambda, Omega, omega, e) {
+      const TWO_PI = Math.PI * 2;
+      const M = (((lambda - Omega - omega) % TWO_PI) + TWO_PI) % TWO_PI;
+      let E = e > 0.8 ? Math.PI : M;
+      for (let k = 0; k < 30; k++) {
+        const dE = (E - e * Math.sin(E) - M) / (1 - e * Math.cos(E));
+        E -= dE;
+        if (Math.abs(dE) < 1e-10) break;
+      }
+      return 2 * Math.atan2(Math.sqrt(1 + e) * Math.sin(E / 2), Math.sqrt(1 - e) * Math.cos(E / 2));
+    }
+
     function rebuildOrbit() {
       const a = state.a;
       const e = state.e;
       const i = state.i * Math.PI / 180;
       const Omega = state.Omega * Math.PI / 180;
       const omega = state.omega * Math.PI / 180;
-      const nu = state.nu * Math.PI / 180;
+      const nu = trueAnomalyFromMeanLongitude(state.lambda * Math.PI / 180, Omega, omega, e);
 
       // Orbit points
       const pts = [];
@@ -904,8 +934,8 @@
       }));
       scene.add(orbitLine);
 
-      // Body position at current nu — frozen while sweeping omega so the
-      // captor doesn't appear to move when only periapsis orientation changes
+      // Body position. lambda is measured from the reference direction, so
+      // sweeping omega or Omega leaves the captor at roughly the same longitude
       if (!bodyMesh) {
         bodyMesh = new THREE.Mesh(
           new THREE.SphereGeometry(0.024, 20, 20),
@@ -913,9 +943,7 @@
         );
         scene.add(bodyMesh);
       }
-      if (sweepingKey !== 'omega') {
-        bodyMesh.position.copy(positionFromElements(a, e, i, Omega, omega, nu));
-      }
+      bodyMesh.position.copy(positionFromElements(a, e, i, Omega, omega, nu));
 
       // Periapsis marker
       const periPos = positionFromElements(a, e, i, Omega, omega, 0);
@@ -955,7 +983,7 @@
       const t = ((now - sweepStartTime) % period) / period;
       // Smooth triangle wave for most, full cycle for angular
       let v;
-      if (el.key === 'Omega' || el.key === 'omega' || el.key === 'nu') {
+      if (el.key === 'Omega' || el.key === 'omega' || el.key === 'lambda') {
         v = el.min + t * (el.max - el.min);
       } else {
         // Triangle wave: 0 -> 1 -> 0
