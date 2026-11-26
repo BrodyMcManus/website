@@ -164,6 +164,32 @@
       font-style: italic;
       color: var(--text-dim);
     }
+    /* Footnote hover cards */
+    .fn-pop {
+      position: absolute;
+      z-index: 10;
+      max-width: min(360px, calc(100vw - 32px));
+      padding: 0.8rem 1rem;
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(29, 28, 26, 0.12);
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: var(--text-dim);
+      opacity: 0;
+      transform: translateY(4px);
+      transition: opacity 0.12s ease, transform 0.12s ease;
+      pointer-events: none;
+    }
+    .fn-pop.open { opacity: 1; transform: none; pointer-events: auto; }
+    .fn-pop .n {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--accent);
+      margin-right: 0.4rem;
+    }
+    @media (prefers-reduced-motion: reduce) { .fn-pop { transition: none; } }
   </style>
 </head>
 <body>
@@ -269,5 +295,86 @@
       </section>
     </article>
   </main>
+
+  <script>
+    // Show footnote text in a card on hover/focus (desktop) or tap (touch).
+    // The notes list at the bottom remains as the no-JS fallback.
+    (function () {
+      var pop = document.createElement('div');
+      pop.className = 'fn-pop';
+      pop.setAttribute('role', 'tooltip');
+      pop.id = 'fn-pop';
+      document.body.appendChild(pop);
+
+      var current = null, hideTimer = null;
+      var canHover = window.matchMedia('(hover: hover)').matches;
+
+      function noteHTML(ref) {
+        var li = document.getElementById(ref.getAttribute('href').slice(1));
+        if (!li) return null;
+        var clone = li.cloneNode(true);
+        var up = clone.querySelector('.up');
+        if (up) up.remove();
+        return '<span class="n">' + ref.textContent + '</span>' + clone.innerHTML.trim();
+      }
+
+      function place(ref) {
+        var r = ref.getBoundingClientRect();
+        var w = pop.offsetWidth, h = pop.offsetHeight;
+        var vw = document.documentElement.clientWidth;
+        var left = Math.min(Math.max(16, r.left + r.width / 2 - w / 2), vw - w - 16);
+        var top = r.bottom + 8;
+        if (top + h > window.innerHeight - 8 && r.top - h - 8 > 0) top = r.top - h - 8;
+        pop.style.left = (left + window.scrollX) + 'px';
+        pop.style.top = (top + window.scrollY) + 'px';
+      }
+
+      function show(ref) {
+        clearTimeout(hideTimer);
+        var html = noteHTML(ref);
+        if (!html) return;
+        if (current !== ref) { pop.innerHTML = html; current = ref; }
+        ref.setAttribute('aria-describedby', 'fn-pop');
+        place(ref);
+        pop.classList.add('open');
+      }
+
+      function hide(delay) {
+        clearTimeout(hideTimer);
+        hideTimer = setTimeout(function () {
+          pop.classList.remove('open');
+          if (current) current.removeAttribute('aria-describedby');
+          current = null;
+        }, delay || 0);
+      }
+
+      document.querySelectorAll('sup a[href^="#fn"]').forEach(function (ref) {
+        if (canHover) {
+          ref.addEventListener('mouseenter', function () { show(ref); });
+          ref.addEventListener('mouseleave', function () { hide(150); });
+        }
+        ref.addEventListener('focus', function () { show(ref); });
+        ref.addEventListener('blur', function () { hide(150); });
+        ref.addEventListener('click', function (e) {
+          // On touch, tap toggles the card instead of jumping to the notes.
+          if (!canHover) {
+            e.preventDefault();
+            if (current === ref && pop.classList.contains('open')) hide(); else show(ref);
+          }
+        });
+      });
+
+      pop.addEventListener('mouseenter', function () { clearTimeout(hideTimer); });
+      pop.addEventListener('mouseleave', function () { hide(150); });
+      pop.addEventListener('focusin', function () { clearTimeout(hideTimer); });
+      pop.addEventListener('focusout', function () { hide(150); });
+
+      document.addEventListener('click', function (e) {
+        if (!pop.contains(e.target) && !(current && current.contains(e.target))) hide();
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') hide(); });
+      window.addEventListener('resize', function () { if (current) place(current); });
+    })();
+  </script>
 </body>
 </html>
