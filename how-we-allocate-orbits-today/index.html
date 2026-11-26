@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How we allocate orbits today</title>
+  <meta name="description" content="Except for some geostationary slots, orbit allocation is first-come, first-served once you get domestic permission to launch. A short guide to the treaties, licences and ITU filings behind it." />
+  <link rel="canonical" href="https://brodymcmanus.com/how-we-allocate-orbits-today/" />
+  <meta property="og:title" content="How we allocate orbits today" />
+  <meta property="og:description" content="Except for some geostationary slots, orbit allocation is first-come, first-served once you get domestic permission to launch." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://brodymcmanus.com/how-we-allocate-orbits-today/" />
+  <meta property="og:image" content="https://brodymcmanus.com/how-we-allocate-orbits-today/allocation-today.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT@9..144,300..700,0..100&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --bg: #fbfaf7;
+      --text: #1d1c1a;
+      --text-dim: #5a564e;
+      --text-faint: #8a857a;
+      --rule: #e3dfd6;
+      --accent: #a25f00;
+      --serif: "Fraunces", "EB Garamond", Georgia, serif;
+      --mono: "JetBrains Mono", ui-monospace, monospace;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--serif);
+      font-optical-sizing: auto;
+      font-weight: 350;
+      font-size: 18px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 3rem 1.25rem 5rem;
+    }
+    .back {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      text-decoration: none;
+      margin-bottom: 4rem;
+    }
+    .back:hover { color: var(--accent); }
+    .meta {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+    }
+    h1 {
+      font-weight: 300;
+      font-variation-settings: "opsz" 144, "SOFT" 30;
+      font-size: clamp(2.2rem, 6vw, 3.2rem);
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      margin: 0.6rem 0 1.4rem;
+      text-wrap: balance;
+    }
+    .dek {
+      font-size: 1.2rem;
+      line-height: 1.5;
+      color: var(--text-dim);
+      margin: 0 0 3rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid var(--rule);
+    }
+    h2 {
+      font-weight: 400;
+      font-variation-settings: "opsz" 72;
+      font-size: 1.55rem;
+      line-height: 1.25;
+      margin: 3.2rem 0 1rem;
+    }
+    h3 {
+      font-weight: 500;
+      font-size: 1.15rem;
+      line-height: 1.3;
+      margin: 2.4rem 0 0.8rem;
+    }
+    p { margin: 0 0 1.2rem; }
+    ul { margin: 0 0 1.2rem; padding-left: 1.3rem; }
+    li { margin-bottom: 0.6rem; }
+    a { color: var(--accent); text-underline-offset: 2px; text-decoration-thickness: 1px; }
+    blockquote {
+      margin: 0 0 1.2rem;
+      padding-left: 1rem;
+      border-left: 2px solid var(--rule);
+      color: var(--text-dim);
+    }
+    sup { line-height: 0; }
+    sup a {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      text-decoration: none;
+      padding: 0 0.1em;
+    }
+    figure { margin: 2rem 0 1.5rem; }
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      background: #fff;
+    }
+    figcaption {
+      margin-top: 0.8rem;
+      font-size: 0.9rem;
+      line-height: 1.55;
+      color: var(--text-dim);
+    }
+    figcaption strong { font-weight: 500; color: var(--text); }
+    .footnotes {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--rule);
+      font-size: 0.85rem;
+      line-height: 1.55;
+      color: var(--text-dim);
+    }
+    .footnotes .label {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-faint);
+      margin-bottom: 0.8rem;
+    }
+    .footnotes ol { padding-left: 1.3rem; margin: 0; }
+    .footnotes li { margin-bottom: 0.7rem; scroll-margin-top: 1rem; }
+    .footnotes .up { text-decoration: none; margin-left: 0.25rem; }
+    .related {
+      margin-top: 3rem;
+      font-size: 0.95rem;
+      color: var(--text-dim);
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <a class="back" href="/">&larr; Brody McManus</a>
+
+    <article>
+      <div class="meta">Space governance &middot; November 2026</div>
+      <h1>How we allocate orbits today</h1>
+      <p class="dek">Except for some geostationary slots, allocation is first-come, first-served once you get domestic permission to launch.</p>
+
+      <h2>Allocation is not ownership</h2>
+      <p>
+        While allocation commonly carries the connotation of ownership, in space it does not. The Outer Space Treaty (OST), which has been ratified by 188 countries, including all major spacefaring nations, states in Article I that space &ldquo;shall be the province of all [hu]mankind&rdquo; and in Article II states &ldquo;&hellip;outer space, including the Moon and other celestial bodies, is not subject to national appropriation by claim of sovereignty, by means of use or occupation, or by any other means.&rdquo; Article II is considered to be customary international law, binding on all actors, even countries which have not signed the treaty. In line with this, nobody owns physical orbits in space or the spectrum used to make transmissions. Any allocations that have occurred are considered temporary and thus not seen as appropriation.
+      </p>
+
+      <h2>Geostationary orbit slots</h2>
+      <p>
+        Let&rsquo;s begin with the exception mentioned above: the particularly scarce Geostationary Orbit (GEO) slots are the only place where physical orbits, and some direct allocations, have occurred. Geostationary orbits are the set of orbits that allow a satellite to stay fixed above a specific place on Earth&rsquo;s surface. GEO is located at a specific altitude, 35,786&nbsp;km &plusmn; 200&nbsp;km, above Earth&rsquo;s surface, and sits above the equator at 0&deg; inclination. This is what makes GEO slots extremely limited compared to other orbits that span much larger ranges of altitudes and inclinations.<sup><a href="#fn1" id="ref1">1</a></sup> Paired with a range of valuable uses, this scarcity has historically made GEO slots the most sought-after positions in orbit.
+      </p>
+      <p>
+        The International Telecommunications Union (ITU), a specialized agency of the United Nations, records each GEO slot as an orbital location paired with a radio frequency assignment.<sup><a href="#fn2" id="ref2">2</a></sup> Current operating standards mean there are roughly 1800 of these slots.<sup><a href="#fn3" id="ref3">3</a></sup> Some of these slots were directly allocated to member states through the ITU Radio Regulations (RR) Appendix 30/30A/30B Plans, and the remainder are obtained through first-come, first-served (FCFS) filings with the ITU. Outside of these GEO slots, actors only file for frequencies but otherwise choose the physical orbits themselves.
+      </p>
+      <p>
+        The RR Plans are the most notable attempt to prevent FCFS from entrenching early actors by trying to uphold Article 44 of the ITU Constitution, which states:
+      </p>
+      <blockquote>
+        &ldquo;radio frequencies and any associated orbits &hellip; are limited natural resources and that they must be used rationally, efficiently and economically &hellip; so that countries or groups of countries may have equitable access to those orbits and frequencies, taking into account the special needs of the developing countries and the geographical situation of particular countries.&rdquo;
+      </blockquote>
+      <p>
+        However, even here the Plan allocations are a second-best resource that consists of less commercially attractive frequencies and suboptimal orbital positions. Their usage remains low, and the most valuable non-Plan GEO slots remain held by the original actors that claimed them. These non-Plan GEO slots, and all other orbits, currently function on a FCFS basis, with several different allocation mechanisms dictating the resulting allocation.
+      </p>
+
+      <h2>All other orbits</h2>
+      <p>
+        The story starts on the ground where operators must receive one or more national licences to launch and operate their objects in space. The purpose of these licences is to help ensure operators follow the rules of the states that are responsible for, liable for, or serviced by the operator.
+      </p>
+      <p>
+        Responsibility comes from OST Art. VI, which states that governments bear international responsibility for national activities in space, whether carried out by governmental or private operators, and that these activities require authorization and continuing supervision. OST Art. III adds that all activities in space must be carried out in accordance with international law.
+      </p>
+      <p>
+        Liability comes from the Liability Convention (1972), which makes the launching state(s) liable for damages. Like the OST, it has also been ratified by all major spacefaring nations, and by 98 countries in total. Strict liability applies for damage caused by space activities on the surface of the Earth and in airspace; fault liability applies for damage caused in space, but only for damage to another state&rsquo;s spacecraft, or to people or property aboard it. In other words, there is no liability for damage to the space environment, or debris on debris. The launching state can be any, or some combination, of: the state that launches, the state that procures the launch, the state from whose territory the object is launched, or the state from whose facility it is launched.
+      </p>
+      <p>
+        National licensing is how states implement these international treaty duties, by turning them into licence conditions operators must adhere to at launch and during operation. An operator must also receive licences from any foreign state(s) whose market they want to access. It is through these licences that states apply their domestic rules on operators, with the ability to revoke licences or fine them serving as the predominant enforcement mechanisms. This is where existing rules on activities in physical orbital space appear, though they are limited to tracking, debris management, and voluntary coordination between operators rather than allocating space.
+      </p>
+
+      <h3>The ITU</h3>
+      <p>
+        A common part of the licensing process is a filing with the ITU,<sup><a href="#fn4" id="ref4">4</a></sup> the main international body that manages how the electromagnetic spectrum (EMS) is used. Its primary goal is to prevent EMS interference between the various actors operating in space. This is because spectrum has traditionally been the scarce resource rather than physical space; that is to say, a given orbit can accommodate far fewer satellites than could physically fit, because of the resulting transmission interference.
+      </p>
+      <p>
+        Besides GEO slot allocation, the ITU divides the radio spectrum into bands for different types of services and registers radio frequencies that operators apply for through their national administration. Priority is FCFS: later filers must protect earlier ones against interference. Two exceptions apply regardless of filing date: GEO allocations receive interference protection from non-GEO systems within specific bands, and Plan allocations are guaranteed that interference stays below a fixed threshold. These protections attach to specific radio frequencies rather than any particular satellite(s). As protections stay valid while in use, with gaps of up to three years allowed, countries can effectively keep them indefinitely by replacing satellites when they are decommissioned.
+      </p>
+      <p>
+        There are mechanisms in place to help ensure operating procedures can adapt over time to address gaps in the system. The RR are updated periodically through World Radiocommunication Conferences (WRC), held every three to four years, and the ITU Constitution itself can be amended at the Plenipotentiary Conference (PP), held every four years. Some notable updates have been made so that Article 44 of the ITU Constitution mentioned earlier can be better upheld. These include:
+      </p>
+      <ul>
+        <li>Anti-warehousing measures, which try to prevent filings for assignments that are not intended to be used.</li>
+        <li>The Appendix 30/30A/30B Plans allocating GEO slots to every member state to help ensure equitable access.</li>
+      </ul>
+
+      <h3>Other forms of orbit management</h3>
+      <ul>
+        <li><strong>Operator agreements:</strong> rules and behaviour are also set bilaterally by operators coordinating with each other. As there is no general right-of-way rule in orbit, this is commonly where who moves to avoid a collision gets worked out.</li>
+        <li><strong>Registration Convention (1975):</strong> most of the above is worked out before launch, but this registry is updated after launch. It is maintained in practice by the United Nations Office for Outer Space Affairs (UNOOSA) and requires a launching state (only one, if there are several) to register, as soon as practicable, all objects launched into or beyond Earth orbit, and to later report when they are no longer in orbit.</li>
+      </ul>
+
+      <h2>What this system looks like</h2>
+      <p>
+        There are a number of mechanisms that exist to govern space both internationally and domestically, manifesting as a patchwork of rules, institutions, and operators coordinating to expand on a predominantly FCFS basis. Efficiency, equity, and externality issues have developed over time, and to some degree the system has tried to adapt to them. Anti-warehousing countermeasures, the RR Appendix 30/30A/30B Plans, and new debris rules required by national licensors are examples. However, problems persist, and new ones appear: <a href="https://www.unmannedairspace.info/latest-news-and-information/esas-space-environment-report-warns-of-skyrocketing-runaway-objects-in-low-earth-orbit/" target="_blank" rel="noopener">the rate of debris creation in orbit is still increasing</a>, the absence of traffic-management standards and growing satellite population increases collision risks, and some actors are <a href="https://docs.fcc.gov/public/attachments/DA-26-113A1.pdf" target="_blank" rel="noopener">filing to deploy</a> large numbers of satellites in strategic or cheap orbits.<sup><a href="#fn5" id="ref5">5</a></sup> This last problem could let the first mover crowd out later actors, raising the cost to compete. In this FCFS regime with no meaningful caps on operator scale, the current allocation is primarily the result of launch capability, which suggests power will continue concentrating with those who build it the quickest. All this said, the OST and the ITU have set the groundwork for an equitable access floor. However, existing incumbents made these measures less effective, the floor can only weakly be enforced, and they don&rsquo;t include any clear bound on any actor&rsquo;s size. For any future agreement on allocating space to be implemented successfully, it will have to ensure that enforcement of the agreed-upon allocations is meaningful, and that the allocations can adapt as intelligence and/or industrial explosions compress the time needed to concentrate power.
+      </p>
+      <p>
+        Allocations have traditionally treated spectrum as the scarce resource, but if the increasingly congested traffic in low Earth orbit (LEO) is any indication, physical orbits may gradually become the scarce resource. Improvements in technology will further contribute to this shift. An agreement covering the Sun would likely focus on the physical orbits around it, as the orbits an actor occupies determine how much of the Sun&rsquo;s energy it can capture.
+      </p>
+
+      <figure>
+        <img src="allocation-today.png" width="2000" height="1345" loading="lazy"
+             alt="Nested boxes. The largest box is Space. Inside it, a smaller box is Frequency, containing Radio plus non-GEO (managed by the ITU, outlined as frequency-allocated), Optical, and the rest of the spectrum. Inside the radio box is a small GEO slots box, outlined as physical space allocated, of which a thin sliver labelled Plans (AP30, 30A, 30B) is directly allocated; the rest of GEO is non-plan, first-come, first-served." />
+        <figcaption>
+          <strong>How physical orbits and spectrum are allocated today.</strong>
+          Sizes are illustrative, not to scale. There is much more physical space than can be filled because transmission interference limits how much physical space can be effectively used.<sup><a href="#fn6" id="ref6">6</a></sup> Everything besides the &ldquo;Directly allocated&rdquo; portion is effectively FCFS for both physical space and frequency. Radio is the only portion of the EMS that is allocated.
+        </figcaption>
+      </figure>
+
+      <p class="related">
+        This piece is adapted from longer, ongoing work on solar orbit allocation. For the earlier draft, see
+        <a href="/solar-orbit-allocation/">How to allocate orbits around the sun</a>.
+      </p>
+
+      <section class="footnotes" aria-label="Footnotes">
+        <div class="label">Notes</div>
+        <ol>
+          <li id="fn1">For example, Low Earth Orbit runs from 160&nbsp;km to 2000&nbsp;km in altitude, and can run from 0&deg;&ndash;180&deg; of inclination. <a class="up" href="#ref1" aria-label="Back to text">&uarr;</a></li>
+          <li id="fn2">For clarity, I use &ldquo;allocation&rdquo; in its usual meaning as a stand-in for what the ITU refers to as &ldquo;allotments&rdquo; and &ldquo;assignments&rdquo;. <a class="up" href="#ref2" aria-label="Back to text">&uarr;</a></li>
+          <li id="fn3">Satellites tend to be kept at their nominal orbital position &plusmn;0.1&deg; for collision and interference avoidance, which allows the 360&deg; GEO orbital band to fit 1800 slots. <a class="up" href="#ref3" aria-label="Back to text">&uarr;</a></li>
+          <li id="fn4">Military radio installations can be exempt under Article 48 of the ITU Constitution. <a class="up" href="#ref4" aria-label="Back to text">&uarr;</a></li>
+          <li id="fn5">The linked SpaceX filing files for two orders of magnitude more satellites than currently exist, across strategically valuable sun-synchronous orbits (SSO) and a 30&deg; inclination band that seems particularly cheap for them to reach with existing launch facilities. <a class="up" href="#ref5" aria-label="Back to text">&uarr;</a></li>
+          <li id="fn6">Most satellites use radio waves for transmissions between the surface and Earth orbit. This is in part due to Earth&rsquo;s atmosphere interfering with a large fraction of the EMS except for being <a href="https://www.researchgate.net/figure/Penetration-of-electromagnetic-radiation-through-Earths-atmosphere_fig1_254005031" target="_blank" rel="noopener">particularly transparent for radio wavelengths</a>. This is one of the reasons that spectrum is artificially scarce compared to what it would be in empty space, and why it is depicted as a subset of space. The more that transmissions are done in orbit, or using optical frequencies, the larger frequency grows relative to &ldquo;space&rdquo;. This seems to be the trend as the total number of satellites in low Earth orbit have grown. <a class="up" href="#ref6" aria-label="Back to text">&uarr;</a></li>
+        </ol>
+      </section>
+    </article>
+  </main>
+</body>
+</html>
